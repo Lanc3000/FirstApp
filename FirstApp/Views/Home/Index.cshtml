@@ -1,0 +1,38 @@
+﻿@model IEnumerable<FirstApp.Models.Persona>
+@{
+    ViewData["Title"] = "Список человеков";
+}
+
+<h3>Список человеков</h3>
+<table class="table-condensed">
+
+    <tr>
+        <td>Фамилия</td>
+        <td>Имя</td>
+        <td>Отчество</td>
+        <td>Номер телефона</td>
+        <td>Пол</td>
+        <td>Страна проживания
+        <td>
+        <td></td>
+    </tr>
+
+    @foreach (var persona in Model)
+    {
+        <tr>
+            <td>@persona.LastName</td>
+            <td>@persona.FirstName</td>
+            <td>@persona.FatherName</td>
+            <td>@persona.Phone</td>
+            <td>@persona.Sex</td>
+            <td>@persona.Country
+            <td>
+                <a asp-action="Change" asp-controller="Home" asp-route-id="@persona.Id">Изменить</a>
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@persona.Id">Удалить</a>
+                    
+                
+    </tr>
+    }
+
+</table>
+<a asp-action="Create">Добавить человека</a>

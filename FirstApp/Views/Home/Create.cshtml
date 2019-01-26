@@ -1,0 +1,35 @@
+﻿@model FirstApp.Models.Persona
+@{
+    ViewBag.Title = "Добавление человека";
+}
+
+<form asp-action="Create" asp-controller="Home">
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label">Имя</label>
+        <input type="text" asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label">Фамилия</label>
+        <input type="text" asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FatherName" class="control-label">Отчество</label>
+        <input type="text" asp-for="FatherName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label">Телефон</label>
+        <input type="number" asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Sex" class="control-label">Пол</label>
+        <input type="text" asp-for="Sex" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Country" class="control-label">Страна проживания</label>
+        <input type="text" asp-for="Country" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>
+
