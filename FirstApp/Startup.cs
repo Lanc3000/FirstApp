@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FirstApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+
 
 namespace FirstApp
 {

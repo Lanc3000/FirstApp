@@ -1,51 +1,87 @@
-﻿@{ 
-    ViewData["Title"]= "Изменение данных";
+﻿@{
+    ViewData["Title"] = "Изменение данных";
 }
 
-        <h2>Внесите изменения:</h2>
-        <form method="post" class="form-horizontal" role="form">
-            <input type="hidden" value="@ViewBag.PersonaID" name="PersonaID" />
+
+
+<h2>Внесите изменения:</h2>
+
+
+
+<form method="post" class="form-horizontal" role="form">
+    <input type="hidden" value="@ViewBag.PersonaID" name="PersonaID" />
+
+    <div class="form-group">
+        <label for="FirstName" class="col-md-2 control-label">Имя:</label>
+        <div class="col-md-4">
+            <input type="text" name="FirstName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="LastName" class="col-md-2 control-label">Фамилия:</label>
+        <div class="col-md-4">
+            <input type="text" name="LastName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="FatherName" class="col-md-2 control-label">Отчество:</label>
+        <div class="col-md-4">
+            <input type="text" name="FatherName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Phone" class="col-md-2 control-label">Телефон:</label>
+        <div class="col-md-4">
+            <input type="number" name="Phone" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Sex" class="col-md-2 control-label">Пол:</label>
+        <div class="col-md-4">
+            <input type="text" name="Sex" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Country" class="col-md-2 control-label">Страна проживания:</label>
+        <div class="col-md-4">
+            <input type="text" name="Country" class="form-control" />
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Внести изменения" />
+        </div>
+    </div>
+</form>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<afaba825-23a8-4fd8-b63a-c1ad9e840bf8>" type="text/javascript"></script>
+<div class="form-group">
+    <div id="map" style="width: 600px; height: 400px"></div>
+    <button onclick="init()">Указать на карте</button>
+    <script type="text/javascript">
+        function init() {
             
-            <div class="form-group">
-                <label for="FirstName" class="col-md-2 control-label">Имя:</label>
-                <div class="col-md-4">
-                    <input type="text" name="FirstName" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="LastName" class="col-md-2 control-label">Фамилия:</label>
-                <div class="col-md-4">
-                    <input type="text" name="LastName" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="FatherName" class="col-md-2 control-label">Отчество:</label>
-                <div class="col-md-4">
-                    <input type="text" name="FatherName" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="Phone" class="col-md-2 control-label">Телефон:</label>
-                <div class="col-md-4">
-                    <input type="number" name="Phone" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="Sex" class="col-md-2 control-label">Пол:</label>
-                <div class="col-md-4">
-                    <input type="text" name="Sex" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="Country" class="col-md-2 control-label">Страна проживания:</label>
-                <div class="col-md-4">
-                    <input type="text" name="Country" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Внести изменения" />
-                </div>
-            </div>
-        </form>
-    
+
+            // Дождёмся загрузки API и готовности DOM.
+            ymaps.ready(initInner);
+
+            function initInner() {
+                 
+                // Создание экземпляра карты и его привязка к контейнеру с
+                // заданным id ("map").
+                var myMap = new ymaps.Map('map', {
+                    // При инициализации карты обязательно нужно указать
+                    // её центр и коэффициент масштабирования.
+                    center: [55.76, 37.64], // Москва
+                    zoom: 10
+                }, {
+                        searchControlProvider: 'yandex#search'
+                    });
+
+
+            }
+        }
+    </script>
+</div>
+
