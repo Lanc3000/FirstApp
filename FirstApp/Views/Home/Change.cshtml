@@ -44,8 +44,8 @@
     <div class="form-group">
         <label for="Country" class="col-md-2 control-label">Страна проживания:</label>
         <div class="col-md-4">
-            <input type="text" name="Country" class="form-control" />
-
+            <input type="text" name="Country" class="form-control" id="addCountry" value=""/>
+            
         </div>
 
     </div>
@@ -57,31 +57,80 @@
 </form>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<afaba825-23a8-4fd8-b63a-c1ad9e840bf8>" type="text/javascript"></script>
 <div class="form-group">
-    <div id="map" style="width: 600px; height: 400px"></div>
     <button onclick="init()">Указать на карте</button>
+    <div id="map" style="width: 600px; height: 400px"></div>
     <script type="text/javascript">
         function init() {
-            
+            ymaps.ready(innerInit);
 
-            // Дождёмся загрузки API и готовности DOM.
-            ymaps.ready(initInner);
+            function innerInit() {
+                input = document.getElementById('addCountry'); 
+                var adressString = 'Zero';
+                var myPlacemark,
+                    myMap = new ymaps.Map('map', {
+                        center: [55.753994, 37.622093],
+                        zoom: 9
+                    }, {
+                            searchControlProvider: 'yandex#search'
+                        });
 
-            function initInner() {
-                 
-                // Создание экземпляра карты и его привязка к контейнеру с
-                // заданным id ("map").
-                var myMap = new ymaps.Map('map', {
-                    // При инициализации карты обязательно нужно указать
-                    // её центр и коэффициент масштабирования.
-                    center: [55.76, 37.64], // Москва
-                    zoom: 10
-                }, {
-                        searchControlProvider: 'yandex#search'
-                    });
+                // Слушаем клик на карте.
+                myMap.events.add('click', function (e) {
+                    var coords = e.get('coords');
 
+                    // Если метка уже создана – просто передвигаем ее.
+                    if (myPlacemark) {
+                        myPlacemark.geometry.setCoordinates(coords);
+                    }
+                    // Если нет – создаем.
+                    else {
+                        myPlacemark = createPlacemark(coords);
+                        myMap.geoObjects.add(myPlacemark);
+                        // Слушаем событие окончания перетаскивания на метке.
+                        myPlacemark.events.add('dragend', function () {
+                            getAddress(myPlacemark.geometry.getCoordinates());
+                         });
+                    }
+                    getAddress(coords);
+                    addCountry.value = adressString;
 
+                });
+                // Создание метки.
+                function createPlacemark(coords) {
+                    return new ymaps.Placemark(coords, {
+                        iconCaption: 'поиск...'
+                    }, {
+                            preset: 'islands#violetDotIconWithCaption',
+                            draggable: true
+                        });
+                }
+                // Определяем адрес по координатам (обратное геокодирование).
+                function getAddress(coords) {
+                    
+                    myPlacemark.properties.set('iconCaption', 'поиск...');
+                     ymaps.geocode(coords).then(function (res) {
+                        var firstGeoObject = res.geoObjects.get(0);
+                        
+                         myPlacemark.properties
+                            .set({
+                                // Формируем строку с данными об объекте.
+                                iconCaption: adressString = [
+                                    // Название населенного пункта или вышестоящее административно-территориальное образование.
+                                        firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                                    // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                                      firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                                ].filter(Boolean).join(', '),
+                                // В качестве контента балуна задаем строку с адресом объекта.
+                                balloonContent: firstGeoObject.getAddressLine()
+                            });
+                       
+                     });
+                                   
+                    
+                }
             }
         }
+        
     </script>
 </div>
 
