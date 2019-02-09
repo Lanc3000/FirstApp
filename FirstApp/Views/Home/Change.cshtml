@@ -61,11 +61,12 @@
     <div id="map" style="width: 600px; height: 400px"></div>
     <script type="text/javascript">
         function init() {
+            
             ymaps.ready(innerInit);
 
             function innerInit() {
-                input = document.getElementById('addCountry'); 
-                var adressString = 'Zero';
+                input = document.getElementById('addCountry'); // позволяет вывести данные в поле input с id = addCountry
+              
                 var myPlacemark,
                     myMap = new ymaps.Map('map', {
                         center: [55.753994, 37.622093],
@@ -92,8 +93,7 @@
                          });
                     }
                     getAddress(coords);
-                    addCountry.value = adressString;
-
+                    
                 });
                 // Создание метки.
                 function createPlacemark(coords) {
@@ -108,13 +108,14 @@
                 function getAddress(coords) {
                     
                     myPlacemark.properties.set('iconCaption', 'поиск...');
+                                 // вывод адресса в input
                      ymaps.geocode(coords).then(function (res) {
                         var firstGeoObject = res.geoObjects.get(0);
                         
                          myPlacemark.properties
                             .set({
                                 // Формируем строку с данными об объекте.
-                                iconCaption: adressString = [
+                                iconCaption: [
                                     // Название населенного пункта или вышестоящее административно-территориальное образование.
                                         firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
                                     // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
@@ -122,12 +123,14 @@
                                 ].filter(Boolean).join(', '),
                                 // В качестве контента балуна задаем строку с адресом объекта.
                                 balloonContent: firstGeoObject.getAddressLine()
-                            });
-                       
+                             });
+                         //добавляем данные об месте на карте в наш input
+                         addCountry.value = firstGeoObject.getAddressLine();
                      });
-                                   
+                                                   
                     
                 }
+                
             }
         }
         
