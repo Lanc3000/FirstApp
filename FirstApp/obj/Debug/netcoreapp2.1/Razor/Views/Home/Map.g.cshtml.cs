@@ -54,7 +54,7 @@ using FirstApp.Models;
             WriteLiteral("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
             EndContext();
             BeginContext(45, 634, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8f5e26b7cd674a65aa29722129538a61", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "84decf63b9c441fbbae440b7754c6813", async() => {
                 BeginContext(51, 621, true);
                 WriteLiteral(@"
     <title>Создание карты по требованию</title>
@@ -84,7 +84,7 @@ using FirstApp.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(681, 164, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f973b801a7a84db3add2e109567c2bd7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "456c856530424388bd1ae432aa1e1446", async() => {
                 BeginContext(687, 151, true);
                 WriteLiteral("\r\n    <input type=\"button\" value=\"Показать карту\" id=\"toggle\" />\r\n    <p>\r\n        <div id=\"map\" style=\"width: 450px; height: 320px\"></div>\r\n    </p>\r\n");
                 EndContext();
