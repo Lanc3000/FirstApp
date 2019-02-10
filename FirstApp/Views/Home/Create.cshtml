@@ -25,11 +25,94 @@
         <input type="text" asp-for="Sex" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Country" class="control-label">Страна проживания</label>
-        <input type="text" asp-for="Country" class="form-control" />
+        <label asp-for="Country" class="control-label">Адрес</label>
+        <input type="text" asp-for="Country" class="form-control" id="addCountry" value=""/>
     </div>
     <div class="form-group">
         <input type="submit" value="Отправить" class="btn btn-default" />
     </div>
 </form>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<afaba825-23a8-4fd8-b63a-c1ad9e840bf8>" type="text/javascript"></script>
+<div class="form-group">
+    <button onclick="init()">Указать на карте</button>
+    <div id="map" style="width: 600px; height: 400px"></div>
+    <script type="text/javascript">
+        function init() {
+
+                ymaps.ready(innerInit);
+
+                function innerInit() {
+                    input = document.getElementById('addCountry'); // позволяет вывести данные в поле input с id = addCountry
+
+                    var myPlacemark,
+
+                        myMap = new ymaps.Map('map', {
+                            center: [55.753994, 37.622093],
+                            zoom: 9
+                        }, {
+                                searchControlProvider: 'yandex#search'
+                            });
+
+                    // Слушаем клик на карте.
+                    myMap.events.add('click', function (e) {
+                        var coords = e.get('coords');
+
+                        // Если метка уже создана – просто передвигаем ее.
+                        if (myPlacemark) {
+                            myPlacemark.geometry.setCoordinates(coords);
+                        }
+                        // Если нет – создаем.
+                        else {
+                            myPlacemark = createPlacemark(coords);
+                            myMap.geoObjects.add(myPlacemark);
+                            // Слушаем событие окончания перетаскивания на метке.
+                            myPlacemark.events.add('dragend', function () {
+                                getAddress(myPlacemark.geometry.getCoordinates());
+                            });
+                        }
+                        getAddress(coords);
+
+                    });
+                    // Создание метки.
+                    function createPlacemark(coords) {
+                        return new ymaps.Placemark(coords, {
+                            iconCaption: 'поиск...'
+                        }, {
+                                preset: 'islands#violetDotIconWithCaption',
+                                draggable: true
+                            });
+                    }
+                    // Определяем адрес по координатам (обратное геокодирование).
+                    function getAddress(coords) {
+
+                        myPlacemark.properties.set('iconCaption', 'поиск...');
+                        // вывод адресса в input
+                        ymaps.geocode(coords).then(function (res) {
+                            var firstGeoObject = res.geoObjects.get(0);
+
+                            myPlacemark.properties
+                                .set({
+                                    // Формируем строку с данными об объекте.
+                                    iconCaption: [
+                                        // Название населенного пункта или вышестоящее административно-территориальное образование.
+                                        firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                                        // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                                        firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                                    ].filter(Boolean).join(', '),
+                                    // В качестве контента балуна задаем строку с адресом объекта.
+                                    balloonContent: firstGeoObject.getAddressLine()
+                                });
+                            //добавляем данные об месте на карте в наш input
+                            addCountry.value = firstGeoObject.getAddressLine();
+                        });
+
+
+                    }
+
+                }
+
+        }
+
+    </script>
+</div>
 

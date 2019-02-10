@@ -63,7 +63,7 @@ using FirstApp.Models;
             WriteLiteral("\r\n\r\n\r\n<h2>Внесите изменения:</h2>\r\n\r\n\r\n\r\n");
             EndContext();
             BeginContext(93, 1800, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d7f8e68fa97404ab991e49ee7ebe039", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7165ea3f6053430e889aac6666809de4", async() => {
                 BeginContext(149, 26, true);
                 WriteLiteral("\r\n    <input type=\"hidden\"");
                 EndContext();

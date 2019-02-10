@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Этот файл используется процессом публикации или упаковки вашего веб-проекта. Можно настроить поведение этого процесса,
+изменив этот файл MSBuild. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvEweAFqIiUmqJ++D5ZFaOAAAAAACAAAAAAAQZgAAAAEAACAAAAC/WCO9bjMP2S1oTW9gnzIfpfONCyngjTwqqJmu67C1mAAAAAAOgAAAAAIAACAAAAA2SqPa1PMjFmPgfWcLfLlQdgl/TdmruN2jwlfyfOng8IAAAACZZV1wDq2+rrh3VhDHdQzuTivoimfCea40cc5t9/NdE5cfOymQ6ufOzwTONhOb85HKWDXfsq4MOFVDWeBsKfMCnw85LRmR5x3+25chNX18TQnPxyLCKo9Hj2Flb2FwrTIYEJP2VyeXpX6abL3EaOdHcx04purPLgOzTlKGxTo3pEAAAADKMUvRSbn3fVS68yqRgrX208N2mYHSY2QouMFtgTdaQi6nVNCROXVKrwQr18GrXngdLRpIqawOa1HjlIwxY/AY</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=%28localdb%29\mssqllocaldb%3bDatabase=personabookdb%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
